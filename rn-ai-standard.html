@@ -876,6 +876,10 @@
               <span class="num">08</span><span class="fname">skills</span
               ><span class="ext">— Bộ kỹ năng riêng</span>
             </div>
+            <div class="toc-item">
+              <span class="num">09</span><span class="fname">safety</span
+              ><span class="ext">— Dùng AI an toàn</span>
+            </div>
           </div>
         </div>
       </section>
@@ -996,6 +1000,7 @@
 <span class="cm">-</span> Sprint · blockers · known issues</pre>
 </div>
 <div class="callout reveal"><div class="ct">⊕ Mẹo</div><p>Nhờ AI gen file này (Claude: <code>/init</code>, hoặc "đọc codebase rồi viết CLAUDE.md") → Sau khi AI gen xong dev <b>review</b> và <b>update</b></p></div>
+<div class="callout reveal"><div class="ct">⊕ Giữ gọn</div><p>Nhắm <b>&lt;200 dòng</b> — file càng dài AI càng tuân thủ kém. Rule đặc thù một thư mục thì đặt context file ngay trong thư mục đó (nested), đừng dồn hết vào root.</p></div>
 
         </div>
       </section>
@@ -1071,7 +1076,7 @@
               <div class="sb">
                 <b>Sử dụng AI lên plan trước</b
                 ><span
-                  >liệt kê yêu cầu cụ thể cùng bộ context -> AI lên plan → Dev review → confirm → code. </br> review kỹ plan của AI để tránh đi sai hướng ngay từ đầu.</span
+                  >liệt kê yêu cầu cụ thể cùng bộ context -> AI lên plan → Dev review → confirm → code. </br> review kỹ plan của AI để tránh đi sai hướng ngay từ đầu. Task lớn: ghi plan ra plan.md để theo dõi &amp; giữ qua session.</span
                 >
               </div>
             </div>
@@ -1295,7 +1300,19 @@
               <li>Gộp câu hỏi vào 1 prompt</li>
               <li>Session dài → nén lại (/compact); xong hẳn → reset (/clear) hoặc tạo session mới</li>
               <li>Tận dụng CLAUDE.md + /docs</li>
+              <li>
+                Việc đào sâu (điều tra / research nhiều file) → giao subagent,
+                chỉ nhận kết luận → context chính sạch
+              </li>
             </div>
+          </div>
+          <div class="callout reveal">
+            <div class="ct">⊕ Ngưỡng</div>
+            <p>
+              Giữ context thấp (lý tưởng &lt;40%). Quá ~50% hoặc đổi task → mở
+              session mới. AI đi sai → rewind / clear, đừng để bản sửa lỗi nằm
+              lại làm nhiễu các lượt sau.
+            </p>
           </div>
         </div>
       </section>
@@ -1328,6 +1345,7 @@
               <li>Output có cấu trúc (format cố định)</li>
               <li>Rõ React Native, Expo, pattern</li>
               <li>1 skill = 1 mục đích rõ ràng</li>
+              <li>Có mục "Gotchas" — ghi lỗi AI hay gặp (phần giá trị nhất)</li>
             </div>
           </div>
           <div class="chips reveal">
@@ -1336,6 +1354,58 @@
               cả team dùng chung</span
             >
             <span class="chip">Skill chưa thử kỹ → chưa phải chuẩn</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 16. CH09 SAFETY -->
+      <section class="slide" data-tab="09-safety.md" data-toc="09 · An toàn">
+        <div class="slide-inner">
+          <div class="prompt reveal">
+            <span class="u">mobile-team@bss</span><span class="c">:</span
+            ><span class="p">~</span><span class="c">$</span> open
+            <span class="f">09-safety.md</span>
+          </div>
+          <div class="kicker reveal">Chương 09</div>
+          <h2 class="reveal">Dùng AI an toàn</h2>
+          <p class="lead reveal">
+            AI là đòn bẩy, không phải người gác cổng. Mấy ràng buộc dưới đây giữ
+            bất kể dùng tool nào — và nên enforce bằng config thay vì nhắc lại
+            mỗi prompt.
+          </p>
+          <div class="grid g3 reveal">
+            <div class="card">
+              <div class="ch">Bí mật &amp; endpoint</div>
+              <div class="ct">Không commit secret</div>
+              <p>
+                Secret lấy từ nơi an toàn (vd Passbolt). MCP / device chỉ trỏ
+                staging, không trỏ production.
+              </p>
+            </div>
+            <div class="card">
+              <div class="ch">Review</div>
+              <div class="ct">Code AI phải có người duyệt</div>
+              <p>
+                Không self-merge code chưa đọc hiểu. Người vẫn chịu trách nhiệm
+                cuối.
+              </p>
+            </div>
+            <div class="card">
+              <div class="ch">AI hay bỏ sót</div>
+              <div class="ct">Người chủ động hỏi tới</div>
+              <p>
+                Performance · security · accessibility · analytics · edge case —
+                AI ít tự nghĩ ra.
+              </p>
+            </div>
+          </div>
+          <div class="callout reveal">
+            <div class="ct">⊕ Ràng buộc trong config, không trong prompt</div>
+            <p>
+              Permission allowlist · hook tự format/lint &amp; chặn commit
+              <code>.env</code> · agent giới hạn tool (chỉ đọc) — enforce một
+              lần, không phụ thuộc bạn có nhớ nhắc hay không.
+            </p>
           </div>
         </div>
       </section>
