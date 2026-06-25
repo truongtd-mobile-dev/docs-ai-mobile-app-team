@@ -878,7 +878,7 @@
             </div>
             <div class="toc-item">
               <span class="num">09</span><span class="fname">safety</span
-              ><span class="ext">— Dùng AI an toàn</span>
+              ><span class="ext">— Dùng agent an toàn</span>
             </div>
           </div>
         </div>
@@ -895,9 +895,9 @@
           <div class="kicker reveal">Lưu ý đầu tiên</div>
           <h2 class="reveal">Cả team, nhiều tool AI khác nhau</h2>
           <p class="lead reveal">
-            Mỗi người trong team có thể dùng Claude Code, Codex hay Gemini.
-            Nhưng cách làm việc hoàn toàn có thể đồng bộ với nhau. Và nên follow
-            theo một qui chuẩn nhất định.
+            Mỗi người trong team có thể dùng Claude Code, Codex hay Gemini —
+            gọi chung là <b>agent</b>. Nhưng cách làm việc hoàn toàn có thể đồng
+            bộ với nhau, và nên follow theo một qui chuẩn nhất định.
           </p>
           <div class="tools reveal">
             <div class="tool">
@@ -909,7 +909,7 @@
             <div class="tool">
               <div class="tn">Rule an toàn</div>
               <div class="td">
-                Secret không commit · MCP không trỏ production · code AI phải review ...
+                Secret không commit · MCP không trỏ production · code agent phải review ...
               </div>
             </div>
             <div class="tool">
@@ -940,7 +940,7 @@
           <div class="kicker reveal">Chương 01</div>
           <h2 class="reveal">Context file — bộ nhớ </br> dài hạn của dự án</h2>
           <p class="lead reveal">
-            File AI tự đọc ở đầu mỗi session. Giúp AI hiểu context dự án mà
+            File agent tự đọc ở đầu mỗi session. Giúp agent hiểu context dự án mà
             không cần giải thích lại mỗi lần.
           </p>
           <div class="grid g3 reveal">
@@ -952,13 +952,13 @@
             <div class="card">
               <div class="ch">Có file tốt</div>
               <div class="ct">Bắt tay vào việc ngay</div>
-              <p>AI đã nắm platform, rule, cấu trúc codebase.</p>
+              <p>Agent đã nắm platform, rules, cấu trúc codebase.</p>
             </div>
             <div class="card">
               <div class="ch">Duy trì</div>
               <div class="ct">Living document</div>
               <p>
-                Update sau mỗi sprint / quyết định kiến trúc. Giao 1 người
+                Update sau mỗi sprint / quyết định kiến trúc. Cần
                 review định kỳ.
               </p>
             </div>
@@ -999,8 +999,8 @@
 <span class="hh">## Current Status</span>
 <span class="cm">-</span> Sprint · blockers · known issues</pre>
 </div>
-<div class="callout reveal"><div class="ct">⊕ Mẹo</div><p>Nhờ AI gen file này (Claude: <code>/init</code>, hoặc "đọc codebase rồi viết CLAUDE.md") → Sau khi AI gen xong dev <b>review</b> và <b>update</b></p></div>
-<div class="callout reveal"><div class="ct">⊕ Giữ gọn</div><p>Nhắm <b>&lt;200 dòng</b> — file càng dài AI càng tuân thủ kém. Rule đặc thù một thư mục thì đặt context file ngay trong thư mục đó (nested), đừng dồn hết vào root.</p></div>
+<div class="callout reveal"><div class="ct">⊕ Tips</div><p>Nhờ agent gen file này (Claude: <code>/init</code>, hoặc "đọc codebase rồi viết CLAUDE.md") → Sau khi agent gen xong dev <b>review</b> và <b>update</b></p></div>
+<div class="callout reveal"><div class="ct">⊕ Giữ gọn</div><p>Nhắm <b>&lt;200 dòng</b> — file càng dài agent càng tuân thủ kém. Rule đặc thù một thư mục thì đặt context file ngay trong thư mục đó (nested), đừng dồn hết vào root.</p></div>
 
         </div>
       </section>
@@ -1018,9 +1018,9 @@
             <span class="f">02-read-task.md</span>
           </div>
           <div class="kicker reveal">Chương 02</div>
-          <h2 class="reveal">Đọc requirement cùng AI</h2>
+          <h2 class="reveal">Đọc requirement cùng agent</h2>
           <p class="lead reveal">
-            Đừng đọc một mình. Nhờ AI tóm tắt, liệt kê câu hỏi clarify, nhận
+            Đừng đọc một mình. Nhờ agent tóm tắt, liệt kê câu hỏi clarify, nhận
             diện dependency &amp; risk trước khi code.
           </p>
           <div class="vs reveal">
@@ -1032,9 +1032,9 @@
               <li>Mất 2–3 giờ để hiểu hết</li>
             </div>
             <div class="col good">
-              <div class="head">✓ Đọc cùng AI</div>
+              <div class="head">✓ Đọc cùng agent</div>
               <li>Highlight ambiguity ngay lập tức</li>
-              <li>Có sẵn list câu hỏi cho PM</li>
+              <li>Có sẵn list câu hỏi cho BA/PA</li>
               <li>Risk được nhận diện trước khi code</li>
               <li>Chỉ mất 20–30 phút</li>
             </div>
@@ -1042,8 +1042,8 @@
           <div class="callout reveal">
             <div class="ct">⊕ Rule of thumb khi ET</div>
             <p>
-              AI cho baseline, bạn chốt. Thêm buffer cho phần AI chưa nắm -
-              technical debt, performance, tích hợp bên thứ ba... Dựa vào baseline của AI để estimate, và điều chỉnh theo thực tế dự án.
+              Agent cho baseline, bạn chốt. Thêm buffer cho phần agent chưa nắm -
+              technical debt, performance, tích hợp bên thứ ba... Dựa vào baseline của agent để estimate, và điều chỉnh theo thực tế dự án.
             </p>
           </div>
         </div>
@@ -1074,9 +1074,9 @@
             <div class="step">
               <span class="n">2</span>
               <div class="sb">
-                <b>Sử dụng AI lên plan trước</b
+                <b>Sử dụng agent lên plan trước</b
                 ><span
-                  >liệt kê yêu cầu cụ thể cùng bộ context -> AI lên plan → Dev review → confirm → code. </br> review kỹ plan của AI để tránh đi sai hướng ngay từ đầu. Task lớn: ghi plan ra plan.md để theo dõi &amp; giữ qua session.</span
+                  >liệt kê yêu cầu cụ thể cùng bộ context -> agent lên plan → Dev review → confirm → code. </br> review kỹ plan của agent để tránh đi sai hướng ngay từ đầu. Task lớn: ghi plan ra plan.md để theo dõi &amp; giữ qua session.</span
                 >
               </div>
             </div>
@@ -1086,7 +1086,7 @@
                 <b>Implement từng phần nhỏ</b
                 ><span
                   >Theo checklist. Mỗi phần xong → review &amp; confirm trước
-                  khi sang phần kế.</span
+                  khi sang phần tiếp theo.</span
                 >
               </div>
             </div>
@@ -1095,7 +1095,7 @@
               <div class="sb">
                 <b>Review &amp; self-test</b
                 ><span
-                  >Review các phần code AI vừa viết, có thể set up riêng một AI phụ trách review code, chạy self-test trước khi
+                  >Review các phần code agent vừa viết, có thể set up riêng một agent phụ trách review code, chạy self-test trước khi
                   commit.</span
                 >
               </div>
@@ -1148,7 +1148,7 @@
             <div class="card">
               <div class="ch">05 · Environment</div>
               <div class="ct">
-                Platform, RN version, device/sim, build variant
+                Platform, RN version, device, build variant ...
               </div>
             </div>
             <div
@@ -1158,8 +1158,8 @@
                 background: rgba(97, 218, 251, 0.06);
               "
             >
-              <div class="ch">⎋ Mẹo</div>
-              <div class="ct">AI đi sai → ngắt ngay (ESC)</div>
+              <div class="ch">⎋ Tips</div>
+              <div class="ct">Agent đi sai → ngắt ngay (ESC)</div>
               <p>Thu hẹp scope, đừng tốn token theo hướng sai.</p>
             </div>
           </div>
@@ -1181,7 +1181,7 @@
           <div class="kicker reveal">Chương 05</div>
           <h2 class="reveal">Self-test trước khi<br />chuyển tester</h2>
           <p class="lead reveal">
-            Nhờ AI sinh checklist phủ đủ 4 nhóm — để không bỏ sót test case quan
+            Nhờ agent sinh checklist phủ đủ 4 nhóm — để không bỏ sót test case quan
             trọng.
           </p>
           <div class="grid g2 reveal">
@@ -1230,7 +1230,7 @@
               <div class="sb">
                 <b>Reproduce trước khi fix</b
                 ><span
-                  >Chưa tái hiện được thì chưa fix. Nhờ AI tạo test case.</span
+                  >Chưa tái hiện được thì chưa fix. Nhờ agent tạo test case.</span
                 >
               </div>
             </div>
@@ -1239,8 +1239,8 @@
               <div class="sb">
                 <b>Phân tích root cause</b
                 ><span
-                  >Dùng công thức debug — tìm nguyên nhân gốc, không chỉ
-                  symptom.</span
+                  >Dùng công thức debug, tìm nguyên nhân gốc, không chỉ
+                  "symptom"</span
                 >
               </div>
             </div>
@@ -1258,7 +1258,7 @@
               <span class="n">4</span>
               <div class="sb">
                 <b>Implement &amp; review fix</b
-                ><span>Nhờ AI review để đảm bảo không gây side effect.</span>
+                ><span>Nhờ agent review để đảm bảo không gây side effect.</span>
               </div>
             </div>
             <div class="step">
@@ -1296,7 +1296,7 @@
             </div>
             <div class="col good">
               <div class="head">✓ Hiệu quả</div>
-              <li>Để AI tự đọc file (chỉ trỏ tên / @mention)</li>
+              <li>Để agent tự đọc file (chỉ trỏ tên / @mention)</li>
               <li>Gộp câu hỏi vào 1 prompt</li>
               <li>Session dài → nén lại (/compact); xong hẳn → reset (/clear) hoặc tạo session mới</li>
               <li>Tận dụng CLAUDE.md + /docs</li>
@@ -1307,10 +1307,10 @@
             </div>
           </div>
           <div class="callout reveal">
-            <div class="ct">⊕ Ngưỡng</div>
+            <div class="ct">⊕ Recommend</div>
             <p>
               Giữ context thấp (lý tưởng &lt;40%). Quá ~50% hoặc đổi task → mở
-              session mới. AI đi sai → rewind / clear, đừng để bản sửa lỗi nằm
+              session mới. agent đi sai → rewind / clear, đừng để bản sửa lỗi nằm
               lại làm nhiễu các lượt sau.
             </p>
           </div>
@@ -1326,9 +1326,9 @@
             <span class="f">08-skills.md</span>
           </div>
           <div class="kicker reveal">Chương 08</div>
-          <h2 class="reveal">Skills — SOP mà AI<br />là người thực thi</h2>
+          <h2 class="reveal">Skills — SOP mà agent<br />là người thực thi</h2>
           <p class="lead reveal">
-            Viết một lần (SKILL.md), AI đọc &amp; làm theo mỗi khi gọi. Gọi /et
+            Viết một lần (SKILL.md), agent đọc &amp; làm theo mỗi khi gọi. Gọi /et
             hay /debug là chạy đúng quy trình team đã định.
           </p>
           <div class="vs reveal">
@@ -1345,7 +1345,7 @@
               <li>Output có cấu trúc (format cố định)</li>
               <li>Rõ React Native, Expo, pattern</li>
               <li>1 skill = 1 mục đích rõ ràng</li>
-              <li>Có mục "Gotchas" — ghi lỗi AI hay gặp (phần giá trị nhất)</li>
+              <li>Có mục "Gotchas" — ghi lỗi agent hay gặp (phần giá trị nhất)</li>
             </div>
           </div>
           <div class="chips reveal">
@@ -1367,9 +1367,9 @@
             <span class="f">09-safety.md</span>
           </div>
           <div class="kicker reveal">Chương 09</div>
-          <h2 class="reveal">Dùng AI an toàn</h2>
+          <h2 class="reveal">Dùng agent an toàn</h2>
           <p class="lead reveal">
-            AI là đòn bẩy, không phải người gác cổng. Mấy ràng buộc dưới đây giữ
+            Agent là đòn bẩy, không phải người gác cổng. Mấy ràng buộc dưới đây giữ
             bất kể dùng tool nào — và nên enforce bằng config thay vì nhắc lại
             mỗi prompt.
           </p>
@@ -1384,18 +1384,18 @@
             </div>
             <div class="card">
               <div class="ch">Review</div>
-              <div class="ct">Code AI phải có người duyệt</div>
+              <div class="ct">Code agent phải có người duyệt</div>
               <p>
                 Không self-merge code chưa đọc hiểu. Người vẫn chịu trách nhiệm
                 cuối.
               </p>
             </div>
             <div class="card">
-              <div class="ch">AI hay bỏ sót</div>
+              <div class="ch">Agent hay bỏ sót</div>
               <div class="ct">Người chủ động hỏi tới</div>
               <p>
                 Performance · security · accessibility · analytics · edge case —
-                AI ít tự nghĩ ra.
+                agent ít tự nghĩ ra.
               </p>
             </div>
           </div>
