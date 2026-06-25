@@ -1,0 +1,81 @@
+<!--
+  Context file — TEMPLATE chuẩn cho team React Native (BSS). Tool-agnostic.
+  Cách dùng: copy thành CLAUDE.md (Claude) ở ROOT repo, điền các [FILL], xoá phần không áp dụng.
+  Đa công cụ: cùng nội dung này dùng cho Codex (AGENTS.md) và Gemini (GEMINI.md) —
+    giữ MỘT nguồn rồi để AGENTS.md/GEMINI.md trỏ về (symlink / @import) thay vì 3 bản lệch nhau.
+  Nguyên tắc: ngắn gọn, đúng sự thật, là "living document" — update khi convention/kiến trúc đổi.
+  Ba archetype: CNG (native sinh từ prebuild) · bare-RN (commit ios/android) · legacy/framework.
+-->
+
+# CLAUDE.md — [FILL: Project Name]
+
+## Project Overview
+<!-- 2-4 câu: app làm gì, backend, và ĐẶC BIỆT là archetype + điều gì khiến repo này khác thường. -->
+- **Mô tả:** [FILL: app gì, cho ai]
+- **Backend:** [FILL: Shopify | Magento | REST custom | …]
+- **Archetype:** [FILL: `CNG` | `bare-RN` | `legacy/framework`]
+- **Lưu ý đặc thù:** [FILL: vd "dựng trên framework SimiCart, dùng layout registry" — bỏ nếu repo chuẩn]
+
+## Tech Stack
+- **React Native:** [FILL: vd 0.83.x]  ·  **React:** [FILL: 19.x]  ·  **TypeScript:** [FILL: strict?]
+- **New Architecture:** [FILL: on | off] — <!-- New Arch nay là default; nếu OFF, ghi RÕ lý do -->
+- **State:** [FILL: Redux/RTK | MobX-State-Tree | Zustand | Context | …]
+- **Data layer:** [FILL: Apollo GraphQL | RTK Query | REST(axios) | hỗn hợp — nêu khi nào dùng cái nào]
+- **Navigation:** [FILL: React Navigation v7 — stack/tabs/drawer]
+- **Key SDKs:** [FILL: Firebase, Braze/OneSignal, analytics, payments, …]
+
+## Project Structure
+<!-- Mô tả ngắn cách tổ chức code + import aliases. Repo LẠ/legacy: mô tả kỹ để Claude không "đánh nhau" với cấu trúc. -->
+- **Code root:** [FILL: `src/` | `app/` | root]
+- **Layout:** [FILL: layer-based (components/screens/models/services) | feature-based | framework-driven]
+- **Aliases:** [FILL: vd `@components/*` → `src/components/*` …]
+- **Quirks:** [FILL: vd "class components ở legacy, code mới dùng function+hooks"; "dual data layer"; bỏ nếu không có]
+
+## Commands
+<!-- Điền ĐÚNG lệnh repo này. Đây là phần đặc thù nhất giữa các repo. -->
+```bash
+[FILL: dev/Metro]            # vd: yarn dev-staging  |  yarn start
+[FILL: run iOS]              # vd: yarn ios-fast-staging  |  yarn ios:dev:debug
+[FILL: run Android]          # vd: yarn android-fast-staging  |  yarn android:dev:debug
+[FILL: build release]        # vd: eas build … | fastlane … | ./gradlew assemble…
+[FILL: test]                 # vd: npx jest  ·  E2E: maestro test .maestro/…
+[FILL: lint / typecheck]     # vd: yarn lint  ·  tsc --noEmit
+```
+
+## Environment & Secrets
+- **Variants:** [FILL: STAGING/LIVE qua APP_VARIANT | APP_ENV; .env.stg / .env.live]
+- **Secrets:** qua **Passbolt** — `.env*` **KHÔNG commit** (đã gitignore).  <!-- giữ quy tắc này mọi repo -->
+- **Fetch env:** [FILL: yarn passbolt:stg | yarn setup:env | …]
+
+## Native Workflow
+<!-- Chọn đúng theo archetype, xoá phần thừa. -->
+- **CNG:** `android/` & `ios/` SINH từ `expo prebuild` — **KHÔNG sửa trực tiếp**; native đổi qua `app.config.js`/config plugin. Đổi plugin → chạy [FILL: prebuild:cache-envs] để tránh stale cache.
+- **bare-RN:** `android/` & `ios/` **commit & quản trực tiếp**; patch-package có kỷ luật; signing qua [FILL: Fastlane match | keystore].
+- **legacy:** [FILL: ghi chú đặc thù — vendored libs, build flavors, …]
+
+## Testing & CI
+- **Unit:** [FILL: Jest + @testing-library/react-native — scope: hook/util/logic]
+- **E2E:** [FILL: Maestro (.maestro/*.yaml) | chưa có]
+- **PR gate:** [FILL: lint + typecheck + test phải xanh trước merge]
+<!-- Repo chưa có test: bắt đầu từ logic mới + bug-fix có test kèm, không phủ ngược toàn bộ. -->
+
+## Conventions
+- **Lint/format:** ESLint + Prettier (`printWidth` [FILL], [FILL: no-semi? double-quote?]); lint-staged + Husky pre-commit.
+- **Branch:** [FILL: `V###APP-###` theo Jira]  ·  **Commit:** [FILL: `type(TICKET): summary`]
+- **PR:** [FILL: Gitea git.bssdev.cloud | GitHub], review trước merge.
+
+## AI assistants
+<!-- Dùng chung cho Claude (CLAUDE.md) / Codex (AGENTS.md) / Gemini (GEMINI.md) — giữ 1 nguồn, trỏ về. -->
+- **Context files:** [FILL: CLAUDE.md (+ AGENTS.md/GEMINI.md trỏ về nếu repo có người dùng Codex/Gemini)]
+- **MCP:** [FILL: mobile-mcp | Argent device — chỉ staging/read-only, KHÔNG prod data]
+- **Skills (đã verify):** [FILL: react-native-best-practices (Callstack) · bộ discipline (vd superpowers) nếu đã đánh giá · Argent device]
+- **Skills tự xây:** [FILL: ET, mô tả PR, release checklist… — ứng viên team tự verify; skill CHƯA verify không coi là chuẩn]
+- **Model:** [FILL: tier nhanh cho việc thường; escalate tier mạnh (Opus / Gemini Pro / Codex high) cho kiến trúc/debug khó]
+
+## Gotchas — "đừng làm"
+<!-- Liệt kê bẫy thật của repo này. Đây là phần Claude (và người mới) cảm ơn bạn nhất. -->
+- [FILL: vd "đừng sửa android/ios"; "đừng import default React"; "chạy cache:flush sau khi…"]
+- [FILL: …]
+
+## Current Status
+- **Sprint:** [FILL]  ·  **Blocked:** [FILL]  ·  **Known issues:** [FILL: /docs/known-issues.md]
