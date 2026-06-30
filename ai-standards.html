@@ -1,0 +1,3365 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobile App Team AI Standards</title>
+    <link rel="icon" type="image/png" href="/React_Native_Logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+    />
+    <style>
+      :root {
+        /* Navy theme */
+        --bg: #0b1a28;
+        --bg-elevated: #112538;
+        --bg-subtle: #0f2030;
+        --bg-code: #0a1622;
+        --text: #e6eef5;
+        --text-secondary: #b0bfd0;
+        --text-muted: #7790a8;
+        --text-faint: #4d6378;
+        --border: #1c3046;
+        --border-strong: #284560;
+        --accent: #7dd3fc;
+        --accent-hover: #bae6fd;
+        --accent-bg: #0c2538;
+        --accent-border: #1e4a6b;
+        /* Semantic */
+        --green: #6ee7b7;
+        --green-bg: #0a2620;
+        --green-border: #134e4a;
+        --amber: #fcd34d;
+        --amber-bg: #2a1f08;
+        --amber-border: #4a3a12;
+        --red: #fca5a5;
+        --red-bg: #2a1418;
+        --red-border: #4a1f28;
+        --blue: #93c5fd;
+        --blue-bg: #0c2538;
+        --blue-border: #1e4263;
+        --tip: #93c5fd;
+        --tip-bg: transparent;
+        --tip-border: #1e4263;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          system-ui,
+          sans-serif;
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--text);
+        background: var(--bg);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* ===== TOP NAV ===== */
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: saturate(180%) blur(8px);
+      }
+
+      .topnav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1600px;
+        margin: 0 auto;
+        height: 56px;
+        padding: 0 34px;
+      }
+
+      .topnav-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(125, 211, 252, 0.08);
+        border: 1px solid rgba(125, 211, 252, 0.22);
+        color: var(--accent);
+        display: grid;
+        place-items: center;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      .brand-logo {
+        width: 24px;
+        height: 24px;
+        display: block;
+      }
+
+      .brand-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        line-height: 1.15;
+      }
+
+      .brand-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .brand-sub {
+        color: var(--text-muted);
+        font-weight: 400;
+        font-size: 12px;
+      }
+
+      .topnav-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-badge {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--text-muted);
+        font-size: 12px;
+        line-height: 1;
+        padding: 7px 10px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .icon-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 7px;
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--text-secondary);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .icon-btn:hover {
+        background: var(--bg-subtle);
+        color: var(--text);
+      }
+      .icon-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .menu-btn {
+        display: none;
+      }
+
+      /* ===== LAYOUT ===== */
+      .layout {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 0;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      /* ===== SIDEBAR ===== */
+      .sidebar {
+        position: sticky;
+        top: 56px;
+        height: calc(100vh - 56px);
+        overflow-y: auto;
+        padding: 28px 16px 40px 24px;
+        border-right: 1px solid var(--border);
+      }
+
+      .sidebar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .sidebar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .sidebar::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 3px;
+      }
+
+      .sb-group {
+        margin-bottom: 20px;
+      }
+
+      .sb-group-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0 10px 8px;
+        display: block;
+      }
+
+      .sb-link {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        padding: 6px 10px;
+        font-size: 13.5px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-radius: 6px;
+        line-height: 1.4;
+        transition: all 0.12s;
+      }
+      .sb-link:hover {
+        background: var(--bg-subtle);
+        color: var(--text);
+      }
+      .sb-link.active {
+        background: var(--accent-bg);
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      .sb-num {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--text-faint);
+        min-width: 18px;
+        font-weight: 400;
+      }
+      .sb-link.active .sb-num {
+        color: var(--accent);
+      }
+
+      /* ===== CONTENT ===== */
+      .content {
+        padding: 56px 80px 120px;
+        max-width: 1180px;
+        min-width: 0;
+      }
+
+      /* Page header */
+      .page-eyebrow {
+        display: inline-block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+        letter-spacing: 0.02em;
+      }
+
+      h1.page-title {
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -0.025em;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
+
+      .page-subtitle {
+        font-size: 17px;
+        color: var(--text-muted);
+        font-weight: 400;
+        letter-spacing: 0.01em;
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .page-subtitle .dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--text-faint);
+        flex-shrink: 0;
+      }
+
+      /* Section headers */
+      h2 {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+        margin: 56px 0 16px;
+        color: var(--text);
+        padding-top: 8px;
+        position: relative;
+        scroll-margin-top: 80px;
+      }
+
+      h2 .h-num {
+        font-family: "JetBrains Mono", monospace;
+        color: var(--accent);
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-block;
+        padding: 3px 8px;
+        background: var(--accent-bg);
+        border: 1px solid var(--accent-border);
+        border-radius: 5px;
+        margin-right: 12px;
+        vertical-align: 4px;
+      }
+
+      h3 {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.4;
+        margin: 32px 0 10px;
+        color: var(--text);
+        scroll-margin-top: 80px;
+      }
+
+      h4 {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 24px 0 8px;
+        color: var(--text);
+      }
+
+      /* Heading anchor link */
+      .anchor {
+        opacity: 0;
+        margin-left: 6px;
+        color: var(--text-faint);
+        text-decoration: none;
+        font-weight: 400;
+        transition: opacity 0.15s;
+      }
+      h2:hover .anchor,
+      h3:hover .anchor {
+        opacity: 1;
+      }
+      .anchor:hover {
+        color: var(--accent);
+      }
+
+      /* Paragraphs */
+      p {
+        margin: 12px 0;
+        color: var(--text);
+        line-height: 1.75;
+      }
+
+      strong {
+        font-weight: 600;
+        color: var(--text);
+      }
+      em {
+        font-style: italic;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.15s;
+      }
+      a:hover {
+        border-bottom-color: var(--accent);
+      }
+
+      /* Lists */
+      ul,
+      ol {
+        margin: 12px 0 12px 4px;
+        padding-left: 22px;
+      }
+      li {
+        margin: 6px 0;
+        color: var(--text);
+        line-height: 1.7;
+      }
+      li::marker {
+        color: var(--text-faint);
+      }
+
+      ul ul,
+      ol ol,
+      ul ol,
+      ol ul {
+        margin: 4px 0;
+      }
+
+      /* Inline code */
+      code {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.88em;
+        background: var(--bg-code);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 1px 6px;
+        color: var(--text);
+      }
+
+      /* Code blocks */
+      pre {
+        background: var(--bg-code);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px 18px;
+        overflow-x: auto;
+        margin: 16px 0;
+        font-size: 13px;
+        line-height: 1.65;
+      }
+      pre code {
+        background: transparent;
+        border: none;
+        padding: 0;
+        font-size: 13px;
+        color: var(--text);
+      }
+
+      /* Tables */
+      .table-wrap {
+        margin: 20px 0;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+
+      thead {
+        background: var(--bg-subtle);
+      }
+
+      th {
+        text-align: left;
+        padding: 10px 14px;
+        font-weight: 600;
+        font-size: 12px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid var(--border);
+      }
+
+      td {
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--border);
+        color: var(--text);
+        vertical-align: top;
+        line-height: 1.6;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: var(--bg-subtle);
+      }
+
+      td code,
+      th code {
+        font-size: 12.5px;
+      }
+
+      /* Callouts */
+      .callout {
+        display: flex;
+        gap: 12px;
+        margin: 20px 0;
+        padding: 14px 16px;
+        border-radius: 8px;
+        border: 1px solid;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .callout-icon {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+      }
+
+      .callout-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .callout-body > *:first-child {
+        margin-top: 0;
+      }
+      .callout-body > *:last-child {
+        margin-bottom: 0;
+      }
+      .callout-body p {
+        margin: 6px 0;
+        line-height: 1.65;
+      }
+      .callout-body ul,
+      .callout-body ol {
+        margin: 6px 0;
+      }
+
+      .callout-label {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 4px;
+      }
+
+      .callout-tip {
+        background: transparent;
+        border-color: transparent;
+        border-left: 2px solid var(--tip);
+        border-radius: 0;
+        padding: 8px 16px 8px 18px;
+      }
+      .callout-tip .callout-icon,
+      .callout-tip .callout-label {
+        color: var(--tip);
+      }
+      .callout-tip .callout-body p {
+        color: var(--text-secondary);
+      }
+
+      .callout-note {
+        background: var(--blue-bg);
+        border-color: var(--blue-border);
+      }
+      .callout-note .callout-icon,
+      .callout-note .callout-label {
+        color: var(--blue);
+      }
+
+      .callout-warning {
+        background: var(--amber-bg);
+        border-color: var(--amber-border);
+      }
+      .callout-warning .callout-icon,
+      .callout-warning .callout-label {
+        color: var(--amber);
+      }
+
+      .callout-important {
+        background: var(--red-bg);
+        border-color: var(--red-border);
+      }
+      .callout-important .callout-icon,
+      .callout-important .callout-label {
+        color: var(--red);
+      }
+
+      .callout-good {
+        background: var(--green-bg);
+        border-color: var(--green-border);
+      }
+      .callout-good .callout-icon,
+      .callout-good .callout-label {
+        color: var(--green);
+      }
+
+      /* Tip stack,  for grouping multiple consecutive notes */
+      .tip-stack {
+        margin: 24px 0;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--bg-subtle);
+        overflow: hidden;
+      }
+      .tip-stack-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        background: var(--bg-code);
+        border-bottom: 1px solid var(--border);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--tip);
+      }
+      .tip-stack-header svg {
+        width: 14px;
+        height: 14px;
+      }
+      .tip-stack-item {
+        padding: 14px 18px 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .tip-stack-item:last-child {
+        border-bottom: none;
+      }
+      .tip-stack-item-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 6px;
+        letter-spacing: 0.01em;
+      }
+      .tip-stack-item-body {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.65;
+      }
+      .tip-stack-item-body p {
+        margin: 4px 0;
+        color: var(--text-secondary);
+      }
+      .tip-stack-item-body p:first-child {
+        margin-top: 0;
+      }
+      .tip-stack-item-body p:last-child {
+        margin-bottom: 0;
+      }
+      .tip-stack-item-body code {
+        font-size: 12.5px;
+      }
+
+      /* Quote */
+      blockquote {
+        border-left: 3px solid var(--border-strong);
+        padding: 4px 0 4px 16px;
+        margin: 16px 0;
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      /* HR */
+      hr {
+        border: none;
+        height: 1px;
+        background: var(--border);
+        margin: 56px 0;
+      }
+
+      /* Divider for top of part */
+      .part-divider {
+        text-align: center;
+        margin: 96px 0 48px;
+        position: relative;
+      }
+      .part-divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--border);
+        z-index: 0;
+      }
+      .part-divider span {
+        position: relative;
+        background: var(--bg);
+        padding: 0 20px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        color: var(--accent);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      /* Part header */
+      .part-header {
+        margin: 24px 0 32px;
+      }
+      .part-header h2 {
+        margin: 0 0 10px;
+        font-size: 28px;
+        border: none;
+        padding: 0;
+      }
+      .part-header > p {
+        color: var(--text-muted);
+        font-size: 15px;
+        margin: 0;
+        letter-spacing: 0.01em;
+      }
+
+      /* Checkbox lists */
+      .checklist {
+        list-style: none;
+        padding-left: 0;
+        margin: 12px 0;
+      }
+      .checklist li {
+        position: relative;
+        padding-left: 28px;
+        margin: 8px 0;
+      }
+      .checklist li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 5px;
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid var(--border-strong);
+        border-radius: 4px;
+      }
+
+      /* ===== MOBILE ===== */
+      .backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 40;
+      }
+
+      @media (max-width: 768px) {
+        .topnav-inner {
+          padding: 0 16px;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        .menu-btn {
+          display: grid;
+        }
+        .sidebar {
+          position: fixed;
+          top: 56px;
+          left: 0;
+          width: 280px;
+          z-index: 41;
+          background: var(--bg);
+          transform: translateX(-100%);
+          transition: transform 0.25s;
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .backdrop.show {
+          display: block;
+        }
+        .content {
+          padding: 28px 20px 80px;
+        }
+        h1.page-title {
+          font-size: 28px;
+        }
+        h2 {
+          font-size: 20px;
+          margin: 40px 0 12px;
+        }
+        .brand-sub {
+          display: none;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .nav-badge {
+          display: none;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .content {
+          padding: 48px 40px 100px;
+        }
+      }
+
+      /* ===== Custom syntax highlighting,  monochrome sky-blue ===== */
+      code[class*="language-"],
+      pre[class*="language-"],
+      pre code,
+      code {
+        color: var(--text);
+        text-shadow: none;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 13px;
+        line-height: 1.7;
+        background: transparent;
+        /* Disable ligatures,  Prism wraps tokens in spans, breaking ligature rendering
+     for sequences like >&, :=, ::, => which render as empty glyph boxes */
+        font-variant-ligatures: none;
+        font-feature-settings:
+          "liga" 0,
+          "calt" 0;
+      }
+
+      pre {
+        background: var(--bg-code);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: auto;
+        margin: 16px 0;
+        padding: 16px 18px;
+      }
+      pre code {
+        background: transparent;
+        border: none;
+        padding: 0;
+      }
+
+      :not(pre) > code[class*="language-"] {
+        padding: 1px 6px;
+        border-radius: 4px;
+        background: var(--bg-code);
+        border: 1px solid var(--border);
+        white-space: normal;
+      }
+
+      /* Monochrome sky-blue,  only brightness varies, no other hues */
+      .token.comment,
+      .token.prolog,
+      .token.doctype,
+      .token.cdata {
+        color: #4f6b85;
+        font-style: italic;
+      }
+
+      .token.punctuation {
+        color: #6b829a;
+      }
+
+      .token.operator,
+      .token.entity,
+      .token.variable,
+      .token.deleted {
+        color: #8fa8c0;
+      }
+
+      .token.keyword,
+      .token.atrule,
+      .token.important,
+      .token.tag,
+      .token.attr-name,
+      .token.property,
+      .token.selector {
+        color: #bae6fd;
+      }
+
+      .token.string,
+      .token.attr-value,
+      .token.char,
+      .token.regex,
+      .token.url,
+      .token.inserted {
+        color: #7dd3fc;
+      }
+
+      .token.number,
+      .token.boolean,
+      .token.constant,
+      .token.symbol {
+        color: #38bdf8;
+      }
+
+      .token.function,
+      .token.class-name,
+      .token.builtin {
+        color: #0ea5e9;
+        font-weight: 500;
+      }
+
+      /* Markdown tokens */
+      .token.title,
+      .token.title.important {
+        color: #bae6fd;
+        font-weight: 600;
+      }
+      .token.list.punctuation {
+        color: #6b829a;
+      }
+      .token.bold {
+        color: var(--text);
+        font-weight: 600;
+      }
+      .token.italic {
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+      .token.code.keyword {
+        color: #7dd3fc;
+        background: rgba(125, 211, 252, 0.08);
+        padding: 1px 4px;
+        border-radius: 3px;
+      }
+      .token.url-reference,
+      .token.url .token.string {
+        color: var(--accent);
+      }
+
+      /* Hide markdown bold/italic asterisks for cleaner template display */
+      .token.bold > .token.punctuation,
+      .token.italic > .token.punctuation {
+        display: none;
+      }
+
+      /* Closing line emphasis */
+      .closing-card {
+        margin: 56px 0 0;
+        padding: 28px 32px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg-subtle);
+        position: relative;
+        overflow: hidden;
+      }
+      .closing-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--accent);
+      }
+      .closing-card .closing-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 6px;
+        letter-spacing: -0.01em;
+      }
+      .closing-card .closing-sub {
+        font-size: 14.5px;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      /* Footer */
+      .footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 0 0;
+        margin-top: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .footer-meta {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .footer-meta span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .footer-version {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        padding: 2px 8px;
+        background: var(--bg-subtle);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        color: var(--text-secondary);
+      }
+
+      /* Back to top */
+      .back-top {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-strong);
+        color: var(--text-secondary);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(8px);
+        transition: all 0.2s;
+        z-index: 30;
+      }
+      .back-top.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .back-top:hover {
+        background: var(--accent-bg);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .back-top svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* ===== Code rendering fixes: Prism + monospace on dark UI =====
+   Prism's default theme gives some operators/entities a light background.
+   On the navy code block this looks like broken glyph boxes around symbols
+   such as |, :, !=, quotes, and >&2. Keep all token boxes transparent and
+   disable ligature/calt rendering for every token span. */
+      pre code,
+      pre code *,
+      code[class*="language-"],
+      code[class*="language-"] * {
+        font-variant-ligatures: none !important;
+        font-feature-settings:
+          "liga" 0,
+          "calt" 0 !important;
+        -webkit-font-feature-settings:
+          "liga" 0,
+          "calt" 0 !important;
+        text-shadow: none !important;
+      }
+
+      pre .token,
+      code[class*="language-"] .token,
+      .token.operator,
+      .token.entity,
+      .token.url,
+      .token.punctuation {
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
+      .token.punctuation,
+      .token.operator {
+        color: #b0bfd0 !important;
+      }
+
+      pre,
+      pre code {
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      /* Selection */
+      ::selection {
+        background: var(--accent);
+        color: var(--bg);
+      }
+
+      /* Scrollbar for body */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--border-strong);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topnav">
+      <div class="topnav-inner">
+        <div class="topnav-left">
+          <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <a href="#" class="brand">
+            <span class="brand-mark" aria-hidden="true">
+              <svg
+                class="brand-logo"
+                viewBox="-11.5 -10.23174 23 20.46348"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="0" cy="0" r="2.05" fill="currentColor" />
+                <ellipse
+                  rx="11"
+                  ry="4.2"
+                  stroke="currentColor"
+                  stroke-width="1.05"
+                />
+                <ellipse
+                  rx="11"
+                  ry="4.2"
+                  stroke="currentColor"
+                  stroke-width="1.05"
+                  transform="rotate(60)"
+                />
+                <ellipse
+                  rx="11"
+                  ry="4.2"
+                  stroke="currentColor"
+                  stroke-width="1.05"
+                  transform="rotate(120)"
+                />
+              </svg>
+            </span>
+            <span class="brand-copy">
+              <span class="brand-title">AI Standards</span>
+              <span class="brand-sub">Mobile App Team</span>
+            </span>
+          </a>
+        </div>
+        <div class="topnav-actions">
+          <span class="nav-badge">Docs v1.0</span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="sb-group">
+          <span class="sb-group-title">Mở đầu</span>
+          <a class="sb-link" href="#tong-quan"
+            ><span class="sb-num">·</span>Tổng quan</a
+          >
+          <a class="sb-link" href="#muc-luc"
+            ><span class="sb-num">·</span>Mục lục</a
+          >
+        </div>
+        <div class="sb-group">
+          <span class="sb-group-title">Phần 1, Khái niệm</span>
+          <a class="sb-link" href="#s01"
+            ><span class="sb-num">01</span>Context file</a
+          >
+          <a class="sb-link" href="#s02"><span class="sb-num">02</span>Skill</a>
+          <a class="sb-link" href="#s03"
+            ><span class="sb-num">03</span>Subagent</a
+          >
+          <a class="sb-link" href="#s04"><span class="sb-num">04</span>MCP</a>
+          <a class="sb-link" href="#s05"><span class="sb-num">05</span>Hook</a>
+          <a class="sb-link" href="#s06"
+            ><span class="sb-num">06</span>Plugin</a
+          >
+          <a class="sb-link" href="#tomtat-1"
+            ><span class="sb-num">∑</span>Choose</a
+          >
+        </div>
+        <div class="sb-group">
+          <span class="sb-group-title">Phần 2, Workflow</span>
+          <a class="sb-link" href="#s10"
+            ><span class="sb-num">10</span>Nhận task</a
+          >
+          <a class="sb-link" href="#s11"
+            ><span class="sb-num">11</span>Làm task</a
+          >
+          <a class="sb-link" href="#s12"
+            ><span class="sb-num">12</span>Fix bug</a
+          >
+          <a class="sb-link" href="#s13"
+            ><span class="sb-num">13</span>Self-test</a
+          >
+          <a class="sb-link" href="#s14"
+            ><span class="sb-num">14</span>Security</a
+          >
+          <a class="sb-link" href="#s15"
+            ><span class="sb-num">15</span>Anti-patterns</a
+          >
+        </div>
+      </aside>
+
+      <main class="content">
+        <!-- ============== OVERVIEW ============== -->
+        <div class="page-eyebrow">Mobile App Team AI Standards · v1.0</div>
+        <h1 class="page-title">AI cho team Mobile App</h1>
+        <div class="page-subtitle">
+          <span>Nhanh</span><span class="dot"></span><span>Chính xác</span
+          ><span class="dot"></span><span>An toàn</span>
+        </div>
+
+        <h2 id="tong-quan">Tổng quan</h2>
+
+        <p>
+          <strong
+            >Một quy chuẩn chung để cả team làm nhanh, chính xác, an toàn
+            hơn.</strong
+          >
+        </p>
+
+        <p>
+          Không phải ai cũng tiếp cận giống nhau → tài liệu này chuẩn hoá cách
+          dùng AI trong công việc hằng ngày.
+        </p>
+
+        <p>
+          Tài liệu tập trung cho <strong>Claude Code</strong> với các khái niệm
+          nền tảng: context, skill, MCP, subagent, hook, plugin.
+        </p>
+
+        <div class="callout callout-note">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path stroke-linecap="round" d="M12 16v-4M12 8h.01" />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Note</span>
+            <p>
+              Mỗi người trong team có thể dùng Claude Code, Codex hay Gemini...
+              gọi chung là <strong>agent</strong>. Concept gần tương tự nhau
+              giữa các agent, nên hoàn toàn có thể tham khảo và áp dụng kiến
+              thức trong docs này để apply vào agent tương ứng. Docs này chuẩn
+              hoá chính cho <strong>Claude Code.</strong>
+            </p>
+          </div>
+        </div>
+
+        <h2 id="muc-luc">Mục lục</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Phần</th>
+                <th>Nội dung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Phần 1, Khái niệm nền tảng</strong></td>
+                <td>
+                  6 khái niệm (Context, Skill, Subagent, MCP, Hook, Plugin) và
+                  lựa chọn nên dùng cho mỗi khái niệm
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Phần 2, Workflow</strong></td>
+                <td>
+                  Nhận task → Làm task → Fix bug → Self-test → Security →
+                  Anti-patterns
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="part-divider"><span>Phần 1, Khái niệm nền tảng</span></div>
+
+        <!-- ============== 01 CONTEXT FILE ============== -->
+        <div class="part-header">
+          <h2 id="s01">
+            <span class="h-num">01</span>Context file<a
+              class="anchor"
+              href="#s01"
+              >#</a
+            >
+          </h2>
+          <h3>Bộ nhớ dài hạn của dự án</h3>
+        </div>
+
+        <p>
+          File agent tự đọc ở đầu mỗi session. Giúp agent hiểu context dự án mà
+          không cần giải thích lại mỗi lần.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Trạng thái</th>
+                <th>Kết quả</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>❌ Không có file</td>
+                <td>
+                  Mất 5–10 phút mỗi session Giải thích lại tech stack,
+                  convention, quyết định thiết kế.
+                </td>
+              </tr>
+              <tr>
+                <td>✅ Có file tốt</td>
+                <td>
+                  Agent bắt tay vào việc ngay, đã nắm platform, rules, cấu trúc
+                </td>
+              </tr>
+              <tr>
+                <td>🔄 Maintain</td>
+                <td>
+                  Living document, update sau mỗi sprint / quyết định kiến trúc.
+                  Cần review định kỳ
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Context file được nạp theo <strong>scope từ rộng đến hẹp</strong> —
+          file càng gần nơi đang làm việc thì càng cụ thể:
+        </p>
+
+        <pre><code>~/.claude/CLAUDE.md          → global: phong cách cá nhân, áp dụng mọi project
+&lt;repo&gt;/CLAUDE.md             → project: tech stack, convention của repo
+&lt;subfolder&gt;/CLAUDE.md        → rule riêng cho module/folder (chỉ khi thực sự cần)</code></pre>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Đừng phân tán quá sớm</span>
+            <p>
+              Chỉ tách context file theo folder khi có nhu cầu rõ ràng. Quá
+              nhiều file context rải rác làm dev khó biết rule nào đang áp dụng.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Nguyên tắc vàng</span>
+            <ul>
+              <li>
+                Chỉ dẫn cần <strong>luôn áp dụng</strong> ở mọi turn → đặt vào
+                <code>CLAUDE.md</code>
+              </li>
+              <li>
+                Quy trình <strong>thỉnh thoảng</strong> mới cần → làm thành
+                <strong>Skill</strong>
+              </li>
+              <li>
+                Script phải chạy <strong>tự động</strong> → làm thành
+                <strong>Hook</strong>
+              </li>
+            </ul>
+            <p>Đừng nhồi mọi thứ vào <code>CLAUDE.md</code>.</p>
+          </div>
+        </div>
+
+        <h3 id="claude-md-template">Ví dụ template CLAUDE.md cho dự án</h3>
+
+        <pre><code># [App Name]
+
+## Project Overview
+
+[One-liner: workflow (bare / Expo CNG / managed), target platforms, CI/CD, release method]
+
+## Tech Stack
+
+- Framework: [React Native version, Expo SDK if any]
+- Language: [TypeScript config,  strict or not]
+- State: [global state lib + server state lib]
+- Navigation: [navigation lib]
+- Styling: [styling approach]
+- Key integrations: [API client, SDKs the project depends on]
+
+## Conventions
+
+- File naming: [component / hook / util convention]
+- Commit: [format, e.g. type(scope): message]
+- Branch: [naming pattern, e.g. feature/TICKET-###]
+- Package install: [npm / yarn / pnpm,  và `npx expo install` cho Expo deps]
+
+## Important Rules,  NEVER
+
+- [Project-specific hard rules]
+
+## Current Status
+
+- Sprint / milestone: [...]
+- Known issues: [...]</code></pre>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Tips</span>
+            <p>
+              Nhờ agent gen file này (<code>/init</code> hoặc "đọc codebase rồi
+              viết CLAUDE.md"), sau đó dev <strong>review + sửa</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- ============== 02 SKILL ============== -->
+        <div class="part-header">
+          <h2 id="s02">
+            <span class="h-num">02</span>Skill<a class="anchor" href="#s02"
+              >#</a
+            >
+          </h2>
+          <h3>Đóng gói quy trình, tự kích hoạt</h3>
+        </div>
+
+        <p>
+          Skill <strong>không phải tool runtime như MCP</strong>. Skill là
+          package gồm
+          <strong>instruction + metadata + optional files/scripts</strong>, kích
+          hoạt <strong>on-demand</strong>. Giúp agent tập trung vào nhiệm vụ,
+          không lan man, tải context thừa.
+        </p>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Về security</span>
+            <p>
+              Skill có thể khai báo <code>allowed-tools</code> để giảm friction
+              khi active, nhưng đây
+              <strong>không phải security boundary</strong>. Chặn hành vi nguy
+              hiểm cần dùng permission settings, hook hoặc policy ở cấp
+              repo/team (xem mục 05 và 14).
+            </p>
+          </div>
+        </div>
+
+        <p>Hoạt động theo 2 giai đoạn:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Giai đoạn</th>
+                <th>Hành vi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Lúc khởi động</strong></td>
+                <td>
+                  Chỉ load <code>name + description</code>, agent đọc để biết
+                  skill dùng khi nào
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Khi đúng việc</strong></td>
+                <td>
+                  Load full <code>SKILL.md</code>, agent đọc trọn quy trình rồi
+                  làm theo
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Vì sao description quan trọng</span>
+            <p>
+              Agent chủ yếu dựa vào <code>name + description</code> để quyết
+              định skill nào phù hợp. Description phải nêu rõ:
+              <strong>dùng khi nào, input là gì, output mong muốn là gì</strong
+              >. Mô tả mơ hồ → skill không được gọi. Agent tự gọi khi mô tả
+              khớp, hoặc dev gọi trực tiếp bằng <code>/tên-skill</code>.
+            </p>
+            <p></p>
+            <p><strong>Ví dụ description tốt:</strong></p>
+            <pre
+              style="margin: 8px 0"
+            ><code>Use this skill when a developer finishes a React Native feature and needs a
+self-test checklist before handing it to QA. Covers happy path, edge cases,
+negative cases, and regression risks.</code></pre>
+          </div>
+        </div>
+
+        <h3 id="skill-recommended">Skill nên dùng</h3>
+
+        <h4>Bộ skill <code>superpowers</code> - Obra</h4>
+        <p>
+          Ép agent làm việc theo một trình tự chuẩn: dừng lại hỏi spec →
+          brainstorm → lên plan → viết test trước (TDD) → code → tự review 2
+          vòng (đúng spec + chất lượng code).
+        </p>
+        <p>
+          Giải quyết failure mode #1 của AI: code vội, nhìn thì ổn nhưng không
+          ổn định, nhiều bug ẩn khi run thật.
+        </p>
+
+        <h4><code>react-native-best-practices</code> - Callstack</h4>
+        <p>
+          Tối ưu React Native: chặn JS thread, Hermes, giảm TTI, FlashList, phát
+          hiện memory leak. Agent tự tham chiếu pattern này khi review/optimize
+          codebase React Native.
+        </p>
+
+        <h4><code>expo</code> - Expo Official Team</h4>
+        <p>
+          Cho repo Expo: build native UI, viết module, deploy, upgrade... Cung
+          cấp cho agent conventions của Expo, tăng chất lượng code và độ chính
+          xác khi thực hiện các tác vụ liên quan Expo.
+        </p>
+
+        <h4><code>skill-creator</code>- Anthropic Official</h4>
+        <p>
+          Dùng để <strong>tạo ra các skill khác</strong>. Thay vì tự học cú pháp
+          <code>SKILL.md</code>, chỉ cần mô tả công việc bằng ngôn ngữ tự nhiên,
+          nó hỏi lại để làm rõ, draft skill, test thử, rồi đóng gói thành skill
+          chạy được.
+        </p>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Case study: bss-jira-task-summary</span>
+            <p>
+              <strong>Vấn đề:</strong> Mỗi lần nhận Jira task, phải đọc cả
+              description lẫn toàn bộ comment (comment chứa quyết định của khách
+              + blocker kỹ thuật). Nhờ agent tóm tắt thì mỗi lần ra một format
+              khác nhau, hay bỏ sót comment quan trọng.
+            </p>
+            <p>
+              <strong>Cách làm với <code>skill-creator</code>:</strong> Mô tả
+              đúng nhu cầu, "khi tôi paste một Jira task, hãy đọc cả description
+              và comment theo thứ tự thời gian, phân loại comment (PA note /
+              quyết định khách / phân tích dev / blocker), rồi xuất ra 2 phần cố
+              định: yêu cầu task và hướng implement kèm file path cụ thể".
+              Skill-creator hỏi lại để làm rõ output format, rồi sinh ra skill
+              hoàn chỉnh.
+            </p>
+            <p>
+              <strong>Kết quả:</strong> Giờ mỗi lần
+              <code>/bss-jira-task-summary</code> + paste ticket là ra đúng một
+              format, hiểu rõ requirement, cover tốt các case và tránh miss
+              thông tin.
+            </p>
+          </div>
+        </div>
+
+        <!-- ============== 03 SUBAGENT ============== -->
+        <div class="part-header">
+          <h2 id="s03">
+            <span class="h-num">03</span>Subagent<a class="anchor" href="#s03"
+              >#</a
+            >
+          </h2>
+          <h3>Context riêng, clean main session</h3>
+        </div>
+
+        <p>
+          Subagent là một <strong>instance Claude riêng biệt</strong>, có
+          context window độc lập, chỉ trả về <strong>kết luận</strong> cho
+          session chính. Dùng khi một task phụ có thể làm ngập session chính với
+          log, kết quả search, nội dung file mà bạn không cần xem lại.
+        </p>
+
+        <h3>Khi nào dùng Subagent</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Use case</th>
+                <th>Ví dụ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Research nhiều file</strong></td>
+                <td>"Đọc toàn bộ module lớn rồi tóm tắt cách nó hoạt động"</td>
+              </tr>
+              <tr>
+                <td><strong>Review code độc lập</strong></td>
+                <td>Fresh review không bị bias bởi code nó vừa viết</td>
+              </tr>
+              <tr>
+                <td><strong>Deep Inspect</strong></td>
+                <td>
+                  Check lib docs, code - so sánh approach mà không nhồi vào
+                  context chính
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Quan hệ với context</span>
+            <p>
+              Subagent là một best practice để
+              <strong>giữ context chính dưới 40%</strong>. Việc nào "đọc nhiều,
+              dùng ít" → đẩy sang subagent.
+            </p>
+          </div>
+        </div>
+
+        <h3>Quản lý context</h3>
+
+        <p>
+          Context window có giới hạn. Càng đầy, agent càng dễ "quên" yêu cầu ban
+          đầu và code loạn dần, thiếu chính xác, gọi là
+          <strong>context rot</strong>.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Ngưỡng</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>&lt; 40%</strong></td>
+                <td>✅ Tốt</td>
+              </tr>
+              <tr>
+                <td><strong>60–70%</strong></td>
+                <td>⚠️ Vùng nguy hiểm, cần xử lý</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>3 lệnh cần nhớ:</strong></p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Lệnh</th>
+                <th>Dùng khi</th>
+                <th>Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong><code>/compact</code></strong>
+                </td>
+                <td>Vẫn cùng một task và muốn tiếp tục</td>
+                <td>Nén lịch sử, giữ phần quan trọng, bỏ phần thừa</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong><code>/clear</code></strong>
+                </td>
+                <td>Chuyển sang task <strong>khác</strong></td>
+                <td>Xoá sạch context, bắt đầu mới</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong><code>/rewind</code></strong> (hoặc
+                  <code>Esc ×2</code>)
+                </td>
+                <td>Agent đi sai hướng, đã sửa lung tung</td>
+                <td>Quay về checkpoint trước khi agent break</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Phân biệt nhanh</span>
+            <p>
+              <code>/compact</code> = cùng task, tiếp tục ·
+              <code>/clear</code> = task mới, làm lại · <code>/rewind</code> =
+              undo agent đi sai.
+            </p>
+          </div>
+        </div>
+
+        <!-- ============== 04 MCP ============== -->
+        <div class="part-header">
+          <h2 id="s04">
+            <span class="h-num">04</span>MCP<a class="anchor" href="#s04">#</a>
+          </h2>
+          <h3>Cổng USB-C của Agent</h3>
+        </div>
+
+        <p>
+          <strong>Model Context Protocol</strong> là chuẩn mở (Anthropic) chuẩn
+          hoá cách agent kết nối tới hệ thống thật bên ngoài. Gỡ thế cô lập:
+          thay vì chỉ biết những gì trong prompt, agent thao tác được với
+          simulator, docs latest, database thật...
+        </p>
+
+        <ul>
+          <li>
+            <strong>Khai báo</strong> → server trong file config
+            (<code>.mcp.json</code>)
+          </li>
+          <li>
+            <strong>Lúc chạy</strong> → agent tự gọi tool khi cần; có thể manual
+            gọi thủ công, tương tự Skill
+          </li>
+        </ul>
+
+        <h3>MCP nên sử dụng</h3>
+
+        <h4>Argent - Software Mansion</h4>
+        <p>
+          Điều khiển iOS Simulator + Android Emulator: chạy, tap, profile, đọc
+          log. Support test, debug và bổ sung context cho agent trong quá trình
+          phát triển feature và fix bug.
+        </p>
+
+        <h4>Context7</h4>
+        <p>
+          Tra docs thư viện/SDK đúng version (Expo SDK, React Native library,
+          3rd-party SDK). Giải quyết vấn đề agent lấy dữ liệu sai do mismatch
+          version, dẫn đến đi sai hướng và phát sinh lỗi không đáng có.
+        </p>
+        <p>
+          Team ưu tiên <strong>MCP mode</strong> để agent gọi docs trực tiếp
+          trong workflow.
+        </p>
+
+        <div class="tip-stack">
+          <div class="tip-stack-header">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+              />
+            </svg>
+            Notes về Context7
+          </div>
+          <div class="tip-stack-item">
+            <div class="tip-stack-item-title">
+              Cách prompt Context7 cho chuẩn
+            </div>
+            <div class="tip-stack-item-body">
+              <p>Khi task phụ thuộc version, nói rõ library và version:</p>
+              <pre style="margin: 8px 0"><code>use context7, Expo SDK 53
+use context7, React Navigation v7
+use library /expo/expo for EAS Update docs</code></pre>
+              <p>Càng rõ library/version, agent càng ít lấy nhầm API cũ.</p>
+            </div>
+          </div>
+          <div class="tip-stack-item">
+            <div class="tip-stack-item-title">
+              Context7 không thay thế review cuối
+            </div>
+            <div class="tip-stack-item-body">
+              <p>
+                Context7 giúp agent lấy docs mới hơn, giảm hallucination, nhưng
+                không phải nguồn chân lý tuyệt đối. Với phần critical như auth,
+                payment, release, native config hoặc migration lớn —
+                <strong
+                  >dev vẫn cần verify lại bằng official docs/source repo trước
+                  khi merge</strong
+                >.
+              </p>
+            </div>
+          </div>
+          <div class="tip-stack-item">
+            <div class="tip-stack-item-title">Context7 setup</div>
+            <div class="tip-stack-item-body">
+              <p>
+                Recommend <code>npx ctx7 setup</code> (interactive, chọn CLI +
+                Skills hoặc MCP mode). API key là khuyến nghị để có rate limit
+                tốt hơn. Nếu setup manual MCP, dùng server URL chính thức và cấu
+                hình API key ở user scope / secret manager,
+                <strong>không commit vào repo</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============== 05 HOOK ============== -->
+        <div class="part-header">
+          <h2 id="s05">
+            <span class="h-num">05</span>Hook<a class="anchor" href="#s05">#</a>
+          </h2>
+          <h3>Script deterministic tại lifecycle</h3>
+        </div>
+
+        <p>
+          Hook là <strong>script chạy tự động</strong> tại các thời điểm trong
+          vòng đời session. Khác Skill/MCP ở chỗ: hook
+          <strong>không phải AI</strong>, nó là logic code chạy, không phụ thuộc
+          agent "nhớ" hay không.
+        </p>
+
+        <h3>Các event chính</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Thời điểm</th>
+                <th>Use case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>PreToolUse</strong></td>
+                <td>TRƯỚC khi agent gọi tool</td>
+                <td>Chốt chặn an toàn quan trọng nhất</td>
+              </tr>
+              <tr>
+                <td><strong>PostToolUse</strong></td>
+                <td>SAU khi tool xong</td>
+                <td>VD: TypeScript check sau mỗi edit</td>
+              </tr>
+              <tr>
+                <td><strong>Stop</strong></td>
+                <td>Khi session kết thúc</td>
+                <td>VD: Bắt buộc test pass trước khi "done"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Exit codes</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Ý nghĩa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>0</code></td>
+                <td>Hook chạy ổn, không chặn</td>
+              </tr>
+              <tr>
+                <td><code>2</code></td>
+                <td>
+                  Blocking error, chỉ chặn với event
+                  <strong>có thể chặn</strong> như <code>PreToolUse</code>. Với
+                  <code>PostToolUse</code> (tool đã chạy xong) thì chỉ báo lỗi,
+                  không chặn ngược được
+                </td>
+              </tr>
+              <tr>
+                <td>non-zero khác</td>
+                <td>Lỗi không chặn, log/hiển thị tuỳ event</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Lưu ý</span>
+            <p>
+              Đừng hiểu "exit 2 = chặn hoàn toàn ở mọi nơi". Muốn ngăn một việc
+              xảy ra, hook
+              <strong>phải đứng trước việc đó</strong> (PreToolUse).
+            </p>
+          </div>
+        </div>
+
+        <h3 id="secret-scan">Hook quan trọng cho team, secret-scan</h3>
+
+        <p>
+          Khác Skill/MCP, hook <strong>không cài từ marketplace</strong>, dev sẽ
+          cần tự viết. Với mobile dev, nên có hook
+          <strong>chặn commit có chứa secret</strong> (key, token,
+          <code>.env</code>). Đây là chốt chặn deterministic cho rủi ro lộ key —
+          thứ mà chỉ nhắc trong CLAUDE.md không đảm bảo được.
+        </p>
+
+        <h4>Setup 3 bước</h4>
+
+        <p>
+          <strong>Bước 1, Viết script scan:</strong>
+          <code>.claude/hooks/secret-scan.sh</code>
+        </p>
+
+        <pre><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+
+# Hook receives JSON via stdin from Claude Code.
+# Script inspects the command to only scan before `git commit`.
+input="$(cat)"
+cmd="$(printf '%s' "$input" | jq -r '.tool_input.command // ""')"
+
+# Skip other bash commands to avoid slowing down the workflow.
+if [[ "$cmd" != git\ commit* ]]; then
+  exit 0
+fi
+
+# Only scan added lines to avoid false positives when removing legacy secrets.
+diff="$(git diff --cached --unified=0 | grep -E '^\+' | grep -vE '^\+\+\+' || true)"
+
+# Common patterns,  extend per the SDKs your team uses
+patterns=(
+  'shpat_[A-Za-z0-9]{32,}'                                   # Shopify token
+  'AIza[0-9A-Za-z_-]{35}'                                    # Firebase / Google API key
+  '-----BEGIN[A-Z ]*PRIVATE KEY-----'                        # private key (.p8/.pem)
+  '([Ss]ecret|[Tt]oken|[Pp]assword)[_-]?[Kk]ey?["'\'' :=]+["'\''][^"'\'' ]{8,}'  # generic
+)
+
+for p in "${patterns[@]}"; do
+  if echo "$diff" | grep -nE "$p" >/dev/null; then
+    echo "Secret detected in staged changes. Commit blocked." >&amp;2
+    echo "Pattern: $p" >&amp;2
+    echo "Move the secret out of the repo (.env + .gitignore) and try again." >&amp;2
+    exit 2   # exit 2 = blocking error at PreToolUse → blocks the commit
+  fi
+done
+
+exit 0</code></pre>
+
+        <pre><code class="language-bash">chmod +x .claude/hooks/secret-scan.sh</code></pre>
+
+        <p>
+          <strong
+            >Bước 2, Đăng ký hook trong
+            <code>.claude/settings.json</code>:</strong
+          >
+        </p>
+
+        <pre><code class="language-json">{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scan.sh"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+        <p>
+          <strong>Bước 3: </strong> Test thử <code>git add</code> một file có
+          chuỗi giống token rồi nhờ agent commit, hook phải chặn với exit
+          <code>2</code>.
+        </p>
+
+        <div class="tip-stack">
+          <div class="tip-stack-header">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+              />
+            </svg>
+            Notes về secret-scan hook
+          </div>
+
+          <div class="tip-stack-item">
+            <div class="tip-stack-item-title">
+              Hook thay cho lời nhắc trong CLAUDE.md
+            </div>
+            <div class="tip-stack-item-body">
+              <p>
+                Đừng viết "NEVER commit .env" trong CLAUDE.md rồi hy vọng agent
+                nhớ. Hook scan chạy chắc chắn mọi lần, cho mọi dev, không phụ
+                thuộc trí nhớ của agent.
+              </p>
+            </div>
+          </div>
+          <div class="tip-stack-item">
+            <div class="tip-stack-item-title">
+              Hook không phải lớp bảo vệ duy nhất
+            </div>
+            <div class="tip-stack-item-body">
+              <p>
+                <code>secret-scan</code> chặn <em>commit</em>. Nhưng secret thật
+                vẫn phải để <strong>ngoài repo</strong> (<code>.env</code> +
+                <code>.gitignore</code>) và deny Read trong settings (xem mục
+                14). Hook là một lớp, không phải tất cả.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============== 06 PLUGIN ============== -->
+        <div class="part-header">
+          <h2 id="s06">
+            <span class="h-num">06</span>Plugin<a class="anchor" href="#s06"
+              >#</a
+            >
+          </h2>
+          <h3>All-in-one</h3>
+        </div>
+
+        <p>
+          Plugin là <strong>gói đóng sẵn</strong> chứa nhiều Skill + Subagent +
+          Hook + MCP + slash command.
+        </p>
+
+        <p>
+          Ví dụ: <strong>Superpowers</strong> là một plugin, bên trong gồm nhiều
+          skill (brainstorm, plan, TDD, review) + hook session-start, không phải
+          một skill đơn lẻ.
+        </p>
+
+        <h3>Plugin nên dùng</h3>
+
+        <h4><code>superpowers</code> - Obra</h4>
+        <p>
+          Đã nêu ở mục Skill. Nhắc lại để làm rõ: nó là <strong>plugin</strong>,
+          không phải skill đơn lẻ. Bên trong gồm nhiều skill (brainstorm, plan,
+          TDD, review) + hook session-start tự kích hoạt.
+        </p>
+
+        <h4><code>callstack agent-skills</code> - Callstack</h4>
+        <p>
+          Marketplace của Callstack, chứa
+          <code>react-native-best-practices</code> và các skill React Native
+          khác. Cài cả marketplace rồi chọn skill cần.
+        </p>
+
+        <h4>Plugin nội bộ team (định hướng)</h4>
+        <p>
+          Khi <code>bss-jira-task-summary</code>, hook <code>secret-scan</code>,
+          và các skill React Native team tự thiết kế đã ổn định, có thể đóng gói
+          thành một <strong>plugin nội bộ</strong> để tối ưu workflow.
+        </p>
+
+        <h3>Security policy khi dùng MCP / Hook / Plugin</h3>
+
+        <p>
+          MCP, hook và plugin là <strong>executable code</strong>, không phải
+          docs/config thường.
+        </p>
+
+        <div class="callout callout-important">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Important</span>
+            <p>Áp dụng các quy tắc bắt buộc sau:</p>
+            <ul>
+              <li>
+                Không commit API key, token, credential vào
+                <code>.mcp.json</code>, dùng <code>.mcp.json.example</code> nếu
+                cần share
+              </li>
+              <li>Không bật auto-approve cho toàn bộ MCP server của project</li>
+              <li>
+                Không cài MCP/plugin từ nguồn lạ - chưa được kiểm duyệt; pin
+                version khi có thể
+              </li>
+              <li>
+                Mọi thay đổi <code>.mcp.json</code>,
+                <code>.claude/settings.json</code>, hook hoặc plugin nội bộ
+                <strong>phải qua dev lead dự án review</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ============== TÓM TẮT P1 ============== -->
+        <h2 id="tomtat-1">Tóm tắt, Chọn cái nào khi nào</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Cần gì</th>
+                <th>Dùng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Chỉ dẫn phải luôn đúng mọi lúc</td>
+                <td><strong>Context file</strong> (<code>CLAUDE.md</code>)</td>
+              </tr>
+              <tr>
+                <td>Quy trình thỉnh thoảng mới cần</td>
+                <td><strong>Skill</strong></td>
+              </tr>
+              <tr>
+                <td>Đọc nhiều / research muốn giữ context sạch</td>
+                <td><strong>Subagent</strong></td>
+              </tr>
+              <tr>
+                <td>Kết nối tool/dữ liệu bên ngoài</td>
+                <td><strong>MCP</strong></td>
+              </tr>
+              <tr>
+                <td>Script phải chạy tự động, chắc chắn</td>
+                <td><strong>Hook</strong></td>
+              </tr>
+              <tr>
+                <td>Bộ công cụ</td>
+                <td><strong>Plugin</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="part-divider"><span>Phần 2, Workflow</span></div>
+
+        <blockquote>
+          Áp dụng các concept ở Phần 1 vào workflow thật. Mỗi workflow nêu các
+          bước +
+          <strong>gợi ý tool tại đúng bước cần dùng</strong>.<br /><br /><strong
+            >Luồng tổng thể:</strong
+          >
+          Nhận task → Làm task → Fix bug → Self-test →
+          <em>(Security xuyên suốt)</em>
+        </blockquote>
+
+        <!-- ============== 10 NHẬN TASK ============== -->
+        <div class="part-header">
+          <h2 id="s10">
+            <span class="h-num">10</span>Nhận &amp; đọc task<a
+              class="anchor"
+              href="#s10"
+              >#</a
+            >
+          </h2>
+        </div>
+
+        <p>
+          <strong>Mục tiêu:</strong> Hiểu đúng requirement, liệt kê câu hỏi
+          clarify, nhận diện dependency & risk trước khi code.
+        </p>
+
+        <h3>Các bước</h3>
+
+        <ol>
+          <li>
+            <strong>Đưa task cho agent phân tích</strong>, paste mô tả Jira +
+            comments (hoặc screenshot)
+          </li>
+          <li>
+            <strong>Nhận output có cấu trúc</strong>, yêu cầu task (what) + tình
+            trạng (đã làm / blocked / chưa làm) + hướng implement (how)
+          </li>
+          <li>
+            <strong>Chốt câu hỏi clarify</strong>, gom các điểm mơ hồ thành list
+            gửi BA/PA trước khi bắt đầu
+          </li>
+          <li>
+            <strong>Estimate</strong>, dùng baseline của agent, tự cộng buffer
+            cho phần agent chưa nắm (tech debt, tích hợp bên thứ ba,
+            performance)
+          </li>
+        </ol>
+
+        <h3>Công cụ hỗ trợ</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>Bước</th>
+                <th>Vai trò</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Skill <code>bss-jira-task-summary</code></strong>
+                </td>
+                <td>1–2</td>
+                <td>
+                  Output luôn đúng format, không bỏ sót comment. Comment chứa
+                  quyết định của khách + blocker kỹ thuật, bỏ qua = làm sai
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong
+                    >Skill <code>superpowers</code> (brainstorming)</strong
+                  >
+                </td>
+                <td>3</td>
+                <td>
+                  Với task lớn/mơ hồ, tự hỏi lại spec thay vì đoán, giúp lộ ra
+                  câu hỏi clarify mình chưa nghĩ tới
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Rule of thumb khi estimate</span>
+            <p>
+              Agent cho baseline, <strong>bạn chốt</strong>. Đừng lấy nguyên con
+              số agent đưa, nó không biết tech debt và lịch sử dự án.
+            </p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Kết quả</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>✕ <strong>Đọc một mình</strong></td>
+                <td>
+                  Bỏ sót edge case, không biết hỏi gì, estimate thiếu buffer
+                </td>
+              </tr>
+              <tr>
+                <td>✓ <strong>Đọc cùng agent</strong></td>
+                <td>
+                  Highlight ambiguity ngay, có sẵn list clarify, nắm risk trước
+                  khi code
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ============== 11 LÀM TASK ============== -->
+        <div class="part-header">
+          <h2 id="s11">
+            <span class="h-num">11</span>Làm task (plan → code)<a
+              class="anchor"
+              href="#s11"
+              >#</a
+            >
+          </h2>
+        </div>
+
+        <p>
+          <strong>Mục tiêu:</strong> Đảm bảo implement đúng hướng ngay từ đầu,
+          không đi sai context dẫn đến lãng phí tài nguyên và đưa ra kết quả kém
+          chất lượng.
+        </p>
+
+        <blockquote>
+          <strong>Core:</strong> Plan trước → review plan → mới code → code từng
+          phần nhỏ.
+        </blockquote>
+
+        <h3>Các bước</h3>
+
+        <ol>
+          <li>
+            <strong>Tạo branch &amp; gom context</strong> —
+            <code>git checkout -b /APP-###</code>; tập hợp file/context liên
+            quan
+          </li>
+          <li>
+            <strong>Agent lên plan trước</strong>, đưa yêu cầu + context → agent
+            đề xuất plan → <strong>dev review kỹ</strong> → confirm → mới code.
+            Task lớn: ghi plan ra <code>plan.md</code> để giữ qua session
+          </li>
+          <li>
+            <strong>Implement từng phần nhỏ</strong>, theo checklist trong plan.
+            Mỗi phần xong → review &amp; confirm → sang phần tiếp
+          </li>
+          <li>
+            <strong>Review code agent vừa viết</strong>, đọc kỹ, hoặc giao
+            subagent review độc lập
+          </li>
+          <li>
+            <strong>Commit &amp; cập nhật docs</strong>, message rõ; sửa
+            CLAUDE.md nếu đổi convention/kiến trúc
+          </li>
+        </ol>
+
+        <h3>Công cụ hỗ trợ</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>Bước</th>
+                <th>Vai trò</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Plan mode</strong> (<code>Shift+Tab</code> hoặc
+                  <code>/plan</code>)
+                </td>
+                <td>2</td>
+                <td>
+                  Agent explore &amp; đề xuất,
+                  <strong>không sửa code</strong> cho tới khi bạn duyệt.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>MCP <code>context7</code></strong>
+                </td>
+                <td>3</td>
+                <td>
+                  Khi code đụng Expo/React Native lib/3rd SDK, thêm
+                  <code>use context7</code> để agent tra docs đúng version,
+                  tránh viết API deprecated
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Skill <code>superpowers</code></strong>
+                </td>
+                <td>2–4</td>
+                <td>
+                  Ép quy trình plan → TDD → review, hạn chế lỗi agent thường mắc
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong
+                    >Skill <code>react-native-best-practices</code></strong
+                  >
+                </td>
+                <td>4</td>
+                <td>
+                  Review góc độ performance: re-render, FlashList, memory leak
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Subagent</strong></td>
+                <td>4</td>
+                <td>
+                  Fresh review code, không bị bias bởi code nó vừa viết. Giữ
+                  context chính sạch
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label"
+              >Plan mode vs Superpowers, khác gì?</span
+            >
+            <ul>
+              <li>
+                <strong>Plan mode</strong> = <em>human-driven</em>: bạn chủ động
+                bắt agent dừng để duyệt plan
+              </li>
+              <li>
+                <strong>Superpowers</strong> = <em>agent-driven</em>: agent tự
+                enforce kỷ luật, không để skip bước kể cả khi bạn quên
+              </li>
+            </ul>
+            <p>Hai cái bổ trợ, không thay thế nhau.</p>
+          </div>
+        </div>
+
+        <!-- ============== 12 FIX BUG ============== -->
+        <div class="part-header">
+          <h2 id="s12">
+            <span class="h-num">12</span>Fix bug<a class="anchor" href="#s12"
+              >#</a
+            >
+          </h2>
+        </div>
+
+        <p>
+          <strong>Mục tiêu:</strong> Hiểu gốc rễ, fix một lần không tái phát.
+          Đừng chỉ dán error message, cung cấp đủ context ngay từ đầu.
+        </p>
+
+        <h3>Công thức debug 5 thành phần</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Thành phần</th>
+                <th>Nội dung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><strong>Error</strong></td>
+                <td>Message đầy đủ + stack trace</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><strong>Reproduce</strong></td>
+                <td>Các bước tái hiện</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><strong>Expected vs Actual</strong></td>
+                <td>Mong đợi vs thực tế</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><strong>Recent changes</strong></td>
+                <td>File/feature vừa sửa</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td><strong>Environment</strong></td>
+                <td>
+                  Platform, React Native/Expo version, device, build variant
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Các bước</h3>
+
+        <ol>
+          <li>
+            <strong>Reproduce trước khi fix</strong>, chưa tái hiện được thì
+            chưa fix. Nhờ agent tạo test case tái hiện
+          </li>
+          <li>
+            <strong>Phân tích root cause</strong>, dùng công thức 5 thành phần,
+            tìm nguyên nhân gốc không chỉ symptom
+          </li>
+          <li>
+            <strong>Xem 2–3 fix options</strong>, so sánh trade-off (safety /
+            effort / risk) trước khi chọn
+          </li>
+          <li>
+            <strong>Implement &amp; review fix</strong>, nhờ agent review để
+            chắc không gây side effect
+          </li>
+          <li>
+            <strong>Test regression</strong>, verify fix không break feature
+            khác
+          </li>
+        </ol>
+
+        <h3>Công cụ hỗ trợ</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>Bước</th>
+                <th>Vai trò</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>MCP <code>Argent</code></strong>
+                </td>
+                <td>1, 5</td>
+                <td>
+                  Agent tự chạy app trên simulator để tái hiện bug và verify
+                  fix. Tap/swipe theo bước reproduce, đọc log runtime
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong
+                    >Skill <code>superpowers</code> (systematic-debug)</strong
+                  >
+                </td>
+                <td>2</td>
+                <td>Quy trình debug có hệ thống, chống nhảy vào fix symptom</td>
+              </tr>
+              <tr>
+                <td><strong>Subagent</strong></td>
+                <td>2</td>
+                <td>
+                  Bug phức tạp cần đọc nhiều file: giao subagent inspect, trả về
+                  danh sách nghi vấn, giữ main context sạch
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Nếu bug đến từ production</span>
+            <p>
+              Khi team dùng crash reporting (Sentry, Firebase Crashlytics), nhà
+              cung cấp thường có MCP để agent đọc thẳng crash report + stack
+              trace. Verify cách cài theo official docs trước khi thêm.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">⎋ Tips</span>
+            <p>
+              Agent đi sai hướng → ngắt ngay (<strong>ESC</strong>). Thu hẹp
+              scope, đừng tốn token theo hướng sai. Checkpoint sai →
+              <code>/rewind</code> về trước khi agent làm hỏng.
+            </p>
+          </div>
+        </div>
+
+        <!-- ============== 13 SELF-TEST ============== -->
+        <div class="part-header">
+          <h2 id="s13">
+            <span class="h-num">13</span>Self-test trước khi giao tester<a
+              class="anchor"
+              href="#s13"
+              >#</a
+            >
+          </h2>
+        </div>
+
+        <p>
+          <strong>Mục tiêu:</strong> Catch bug ngay ở khâu self-test để không bỏ
+          sót test case quan trọng trước khi chuyển tester, tiết kiệm thời gian
+          cho cả tester lẫn dev.
+        </p>
+
+        <h3>4 nhóm test bắt buộc</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nhóm</th>
+                <th>Mô tả</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Happy path</strong></td>
+                <td>Luồng chính chạy đúng</td>
+              </tr>
+              <tr>
+                <td><strong>Edge cases</strong></td>
+                <td>Giá trị biên, dữ liệu bất thường</td>
+              </tr>
+              <tr>
+                <td><strong>Negative cases</strong></td>
+                <td>Input sai, app xử lý lỗi đúng cách</td>
+              </tr>
+              <tr>
+                <td><strong>Regression</strong></td>
+                <td>Không break feature liên quan</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Các bước</h3>
+
+        <ol>
+          <li>
+            <strong>Agent sinh checklist</strong>: phủ đủ 4 nhóm dựa trên
+            feature vừa làm
+          </li>
+          <li>
+            <strong>Chạy self-test</strong>: tự test theo checklist, hoặc để
+            agent chạy trên simulator
+          </li>
+          <li>
+            <strong>Review code lần cuối</strong>: chạy structured review trước
+            khi commit
+          </li>
+          <li>
+            <strong>Chuẩn bị handoff note cho tester</strong>: xem template dưới
+          </li>
+        </ol>
+
+        <h3>Công cụ hỗ trợ</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>Vai trò</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>MCP <code>Argent</code></strong>
+                </td>
+                <td>
+                  Agent tự chạy qua các case trên simulator: tap theo happy
+                  path, nhập edge value, chụp screenshot kết quả
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong><code>/review</code></strong>
+                </td>
+                <td>
+                  Structured code review tại chỗ: bug, edge case, design issue.
+                  Nhanh, chạy local
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong><code>/ultra-review</code></strong>
+                </td>
+                <td>Trước khi merge thứ critical (auth, payment, migration)</td>
+              </tr>
+              <tr>
+                <td><strong>Skill self-test nội bộ (Todo)</strong></td>
+                <td>
+                  Team có thể chuẩn hóa một bộ skill sinh checklist theo đúng 4
+                  nhóm + đặc thù dự án
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Template handoff note cho tester</h3>
+
+        <pre><code>## [APP-###] Tên feature
+
+Branch: /APP-###
+
+Đã test:
+- Happy path: [tóm tắt case đã pass]
+- Edge/Negative: [case đã cover]
+- Platform: iOS ✓ / Android ✓
+
+Known limitations / chưa cover:
+- [thứ tester cần chú ý, hoặc "không có"]
+
+Cần test kỹ:
+- [vùng rủi ro nhất, vd: flow thanh toán, deep link]</code></pre>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Phép tính đơn giản</span>
+            <ul>
+              <li>Bug bắt ở self-test = <strong>~5 phút</strong></li>
+              <li>
+                Bug do tester tìm ra = thêm <strong>~30 phút</strong> (re-open →
+                fix → re-test → close)
+              </li>
+            </ul>
+            <p>Self-test kỹ là đầu tư lời nhất.</p>
+          </div>
+        </div>
+
+        <!-- ============== 14 SECURITY ============== -->
+        <div class="part-header">
+          <h2 id="s14">
+            <span class="h-num">14</span>Security<a class="anchor" href="#s14"
+              >#</a
+            >
+          </h2>
+          <h3>Xuyên suốt mọi workflow</h3>
+        </div>
+
+        <p>
+          <strong>Mục tiêu:</strong> Để agent access codebase một cách an toàn.
+        </p>
+
+        <blockquote>
+          Khác các mục trên, security
+          <strong>không phải workflow tuần tự</strong>, nó là lớp enforce
+          <strong>một lần bằng config</strong>, áp dụng cho mọi workflow phía
+          trên.
+        </blockquote>
+
+        <h3>Ba nguy cơ chính</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nguy cơ</th>
+                <th>Mô tả</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Prompt injection</strong></td>
+                <td>
+                  Nội dung lạ (issue, MCP output, comment trong dependency) giấu
+                  chỉ dẫn; agent đọc rồi làm theo như lệnh thật
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Supply chain (slopsquatting)</strong></td>
+                <td>
+                  Agent hallucinate tên package không có thật; attacker đăng ký
+                  sẵn tên đó thành package độc
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Secret leak</strong></td>
+                <td>
+                  Agent đọc <code>.env</code>/key/token rồi tuồn ra qua curl,
+                  git push, hoặc markdown link
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Lethal trifecta, Nguyên nhân gốc <em>(Simon Willison)</em></h3>
+
+        <p>
+          Agent thành nguy hiểm khi có <strong>đủ 3 thứ cùng lúc</strong>. Không
+          phải do model, nó chỉ làm đúng việc là nghe theo chỉ dẫn:
+        </p>
+
+        <pre><code>1. Private data      -  đọc được source, .env, key, database
+2. Untrusted content -  tham chiếu nguồn không đáng tin từ bên ngoài: web, issue, MCP output
+3. Exfiltration      -  có đường gửi ra ngoài: curl, git push, gọi API, render link</code></pre>
+
+        <div class="callout callout-warning">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Warning</span>
+            <p>
+              <strong>Đủ ba yếu tố = vấn đề an toàn nghiêm trọng.</strong> Cách
+              xử lý: <strong>chặn ít nhất một yếu tố</strong> trong mọi
+              execution path. Meta gọi là <em>Rule of Two</em>, đừng để một
+              session ôm cả ba thứ.
+            </p>
+          </div>
+        </div>
+
+        <h3>Hướng bảo vệ, Enforce bằng config, không bằng lời nhắc</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Lớp</th>
+                <th>Làm gì</th>
+                <th>Tool</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Permission</strong></td>
+                <td>
+                  deny → ask → allow: khoá hành động nguy hiểm bằng denylist,
+                  hỏi với npm/npx
+                </td>
+                <td>
+                  <code>.claude/settings.json</code> <code>permissions</code>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Secret scan</strong></td>
+                <td>Chặn commit chứa key/token</td>
+                <td>
+                  <strong>Hook <code>secret-scan</code></strong> (PreToolUse)
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Secret storage</strong></td>
+                <td>
+                  <code>deny Read</code> không chặn <code>cat</code> qua Bash →
+                  để secret ngoài repo
+                </td>
+                <td><code>.gitignore</code></td>
+              </tr>
+              <tr>
+                <td><strong>Con người</strong></td>
+                <td>
+                  Code agent phải review; MCP/device chỉ trỏ
+                  <strong>staging</strong> không trỏ production
+                </td>
+                <td>Review thủ công</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Chốt chặn tối thiểu trong <code>.claude/settings.json</code></h3>
+
+        <p>
+          Ở root repo, tạo hoặc cập nhật <code>.claude/settings.json</code> để
+          chặn agent đọc trực tiếp các file secret phổ biến:
+        </p>
+
+        <pre><code class="language-json">{
+  "permissions": {
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.p8)",
+      "Read(**/*.p12)"
+    ]
+  }
+}</code></pre>
+
+        <div class="callout callout-warning">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Warning</span>
+            <p>
+              <strong><code>deny Read</code> chưa đủ</strong> — Permission deny
+              giúp chặn Read tool và một số file command Claude Code nhận diện,
+              nhưng đây <strong>không phải OS-level sandbox</strong>. Một
+              subprocess như script Python/Node vẫn có thể tự đọc file nếu Bash
+              được phép và môi trường không bị sandbox.
+            </p>
+            <p>
+              Secret thật phải untrack khỏi <strong>repo</strong>
+              <code>.gitignore</code>.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label"
+              >Mặc định không cho agent đụng production data</span
+            >
+            <p>
+              Nếu cần đọc dữ liệu thật để debug, phải có approval rõ ràng, chỉ
+              dùng quyền <strong>read-only</strong> và scoped theo đúng issue.
+              Đặc biệt quan trọng nếu team cắm MCP của Sentry, Firebase hay
+              Braze.
+            </p>
+          </div>
+        </div>
+
+        <h3>Checklist trước khi commit code có AI tham gia</h3>
+
+        <ul class="checklist">
+          <li>Đã review toàn bộ code agent viết, không blind merge</li>
+          <li>
+            Không có key/token/secret trong diff (hook đã scan, nhưng vẫn cần
+            dev review check)
+          </li>
+          <li>
+            Package agent thêm vào là <strong>package có thật</strong> (check
+            npm, không tin mặc định tên package agent gợi ý)
+          </li>
+          <li>MCP đang dùng trỏ staging/dev, không phải production</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Nguyên tắc</span>
+            <p>
+              Phá đứt một cạnh của trifecta ở mọi execution path, rồi enforce
+              bằng config. Giữ agent up-to-date (nhiều CVE cho bypass
+              permission).
+            </p>
+          </div>
+        </div>
+
+        <!-- ============== 15 ANTI-PATTERNS ============== -->
+        <div class="part-header">
+          <h2 id="s15">
+            <span class="h-num">15</span>Anti-patterns<a
+              class="anchor"
+              href="#s15"
+              >#</a
+            >
+          </h2>
+          <h3>Những cái cần tránh</h3>
+        </div>
+
+        <h3>Khi nào KHÔNG nên dựa vào AI</h3>
+
+        <p>
+          AI là công cụ tăng tốc, không thay thế phán đoán. Những việc
+          <strong>dev phải tự chủ</strong>:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Quyết định kiến trúc lớn</strong>: chọn New Arch vs Old
+            Arch, đổi state management, cấu trúc navigation. Agent tư vấn được,
+            nhưng quyết định là của dev.
+          </li>
+          <li>
+            <strong>Logic security-critical</strong>: auth flow, xử lý token, mã
+            hoá. Review cực kỹ, không blind merge
+          </li>
+          <li>
+            <strong>Review cuối trước production</strong>: đặc biệt code đụng
+            payment, user data, migration
+          </li>
+          <li>
+            <strong>Đánh giá trade-off có tính business</strong>: agent không
+            biết deadline, ưu tiên khách hàng, lịch sử dự án
+          </li>
+        </ul>
+
+        <h3>Các lỗi thường gặp khi dùng AI</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Lỗi</th>
+                <th>Vì sao nguy hiểm</th>
+                <th>Thay vào đó</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Merge code không đọc</strong></td>
+                <td>
+                  Agent viết code nhìn ổn nhưng sai logic/edge case; lỗi lọt
+                  thẳng vào production
+                </td>
+                <td>
+                  Luôn review từng phần. Code đụng auth/payment review cực kỹ
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Dán cả file 1000 dòng vào chat</strong></td>
+                <td>Tốn context, nhiễu, agent mất focus</td>
+                <td>
+                  Để agent tự đọc file (chỉ trỏ tên / @mention). Đây là agentic
+                  tool, không phải chat web
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Một session cho cả ngày</strong></td>
+                <td>Context rot, agent quên yêu cầu ban đầu, code loạn dần</td>
+                <td>
+                  Context &gt; 50% hoặc đổi task → <code>/compact</code> hoặc mở
+                  session mới. Giữ context &lt; 40%
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Tin tên package agent đưa</strong></td>
+                <td>
+                  Slopsquatting, agent bịa tên package, attacker đăng ký sẵn tên
+                  đó thành malware
+                </td>
+                <td>
+                  Verify package có thật trên npm trước khi <code>install</code>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Để agent tự quyết kiến trúc</strong></td>
+                <td>
+                  Agent không biết tech debt, lịch sử dự án, ràng buộc business
+                </td>
+                <td>
+                  Agent tư vấn, dev quyết. Đặc biệt: New Arch vs Old Arch, state
+                  management
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg
+            class="callout-icon"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"
+            />
+          </svg>
+          <div class="callout-body">
+            <span class="callout-label">Nguyên tắc</span>
+            <p>
+              Mọi lỗi trên đều quy về một nguyên nhân:
+              <strong
+                >giao cho agent nhiều quyền hơn mức mình kiểm soát được</strong
+              >. Dùng AI để tăng tốc độ, nhưng luôn phải giữ vai trò là người
+              kiểm định, đánh giá chặt chẽ ở mọi bước trong mọi qui trình.
+            </p>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <div class="footer-meta">
+            <span class="footer-version">v1.0</span>
+            <span>BSS Commerce · React Native Team</span>
+          </div>
+          <div class="footer-meta">
+            <span>Last verified · 30/06/2026</span>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <button class="back-top" id="backTop" aria-label="Scroll to top">
+      <svg
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5 15l7-7 7 7"
+        />
+      </svg>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+    <script>
+      // Mobile menu
+      const menuBtn = document.getElementById("menuBtn");
+      const sidebar = document.getElementById("sidebar");
+      const backdrop = document.getElementById("backdrop");
+
+      menuBtn.addEventListener("click", () => {
+        sidebar.classList.add("open");
+        backdrop.classList.add("show");
+      });
+      backdrop.addEventListener("click", () => {
+        sidebar.classList.remove("open");
+        backdrop.classList.remove("show");
+      });
+
+      const sbLinks = document.querySelectorAll(".sb-link");
+      const sections = document.querySelectorAll("h2[id]");
+
+      // Scroll lock to prevent scroll handler from overriding click-selected link
+      // during smooth scroll animation
+      let scrollLock = false;
+      let scrollLockTimer = null;
+
+      function setActiveLink(href) {
+        sbLinks.forEach((l) => l.classList.remove("active"));
+        const target = document.querySelector(`.sb-link[href="${href}"]`);
+        if (target) target.classList.add("active");
+      }
+
+      sbLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          // Immediate feedback on click
+          setActiveLink(link.getAttribute("href"));
+          // Lock scroll-based updates until smooth scroll settles
+          scrollLock = true;
+          if (scrollLockTimer) clearTimeout(scrollLockTimer);
+          scrollLockTimer = setTimeout(() => {
+            scrollLock = false;
+          }, 900);
+          // Close mobile menu
+          sidebar.classList.remove("open");
+          backdrop.classList.remove("show");
+        });
+      });
+
+      // Scroll-based active section tracking
+      function updateActive() {
+        if (scrollLock) return;
+        const triggerY = 100;
+        let active = null;
+
+        sections.forEach((s) => {
+          if (s.getBoundingClientRect().top <= triggerY) {
+            active = s;
+          }
+        });
+
+        if (active) setActiveLink(`#${active.id}`);
+      }
+
+      window.addEventListener("scroll", updateActive, { passive: true });
+      updateActive();
+
+      // Back-to-top button
+      const backTop = document.getElementById("backTop");
+      window.addEventListener(
+        "scroll",
+        () => {
+          backTop.classList.toggle("visible", window.scrollY > 600);
+        },
+        { passive: true },
+      );
+      backTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
+  </body>
+</html>
